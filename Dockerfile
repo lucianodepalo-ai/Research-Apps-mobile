@@ -20,8 +20,8 @@ ENV TZ=America/Argentina/Buenos_Aires
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Playwright browsers (requerido para TikTok scraper)
-RUN playwright install --with-deps chromium
+# Playwright deshabilitado — TikTok requiere imagen base diferente (ubuntu)
+# RUN playwright install --with-deps chromium
 
 # Código
 COPY . .

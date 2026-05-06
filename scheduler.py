@@ -25,7 +25,6 @@ from scrapers.api_based.play_store import PlayStoreScraper
 from scrapers.api_based.telegram_scraper import TelegramScraper
 from scrapers.suggest_based.google_suggest import GoogleSuggestScraper
 from scrapers.suggest_based.youtube_suggest import YouTubeSuggestScraper
-from scrapers.playwright_based.tiktok_scraper import TikTokScraper
 
 from insights.nlp.pain_extractor import PainExtractor
 from insights.trend_analysis import take_niche_snapshot
@@ -67,13 +66,6 @@ def run_play_store():
     except Exception as e:
         logger.exception(f"Play Store: {e}")
 
-
-def run_tiktok():
-    logger.info("=== JOB: TIKTOK ===")
-    try:
-        TikTokScraper().run()
-    except Exception as e:
-        logger.exception(f"TikTok: {e}")
 
 
 def run_analyzer():
@@ -153,9 +145,6 @@ def main():
     scheduler.add_job(run_play_store, CronTrigger(hour=4, minute=0),
                        id="play_store", max_instances=1, coalesce=True)
 
-    # TikTok cada 12h
-    scheduler.add_job(run_tiktok, CronTrigger(hour="2,14", minute=30),
-                       id="tiktok", max_instances=1, coalesce=True)
 
     # ----- Procesamiento -----
     # Analyzer 4x día (después de cada batch de scrapers)
@@ -187,7 +176,6 @@ def main():
     logger.info("\n=== Bootstrap inicial ===")
     run_suggest()
     run_play_store()
-    run_tiktok()
     run_social()
     run_analyzer()
 
