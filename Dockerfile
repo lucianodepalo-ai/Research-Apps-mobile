@@ -20,9 +20,8 @@ ENV TZ=America/Argentina/Buenos_Aires
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Playwright browsers (solo si vas a usar Tier 4)
-# Descomentá si activás Playwright:
-# RUN playwright install --with-deps chromium
+# Playwright browsers (requerido para TikTok scraper)
+RUN playwright install --with-deps chromium
 
 # Código
 COPY . .
