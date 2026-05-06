@@ -1,0 +1,78 @@
+version: "3.9"
+
+services:
+  # ============================================================
+  # Scheduler: corre los scrapers + alertas en background
+  # ============================================================
+  scheduler:
+    build: .
+    container_name: ai_scheduler
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      # Si Ollama corre en otro container, ajustar:
+      OLLAMA_URL: ${OLLAMA_URL:-http://ollama:11434}
+    command: python scheduler.py
+    depends_on:
+      ollama:
+        condition: service_healthy
+        required: false   # si Ollama está caído, scheduler igual arranca
+
+  # ============================================================
+  # Dashboard Streamlit
+  # ============================================================
+  dashboard:
+    build: .
+    container_name: ai_dashboard
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      OLLAMA_URL: ${OLLAMA_URL:-http://ollama:11434}
+    command: >
+      streamlit run dashboard/app.py
+      --server.port=8501
+      --server.address=0.0.0.0
+      --server.headless=true
+      --browser.gatherUsageStats=false
+    ports:
+      - "8501:8501"
+    depends_on:
+      - scheduler
+
+  # ============================================================
+  # Ollama: LLM local para NLP de reviews
+  # ============================================================
+  # Si ya tenés Ollama corriendo en el host, comentá este servicio
+  # y poné en .env:
+  #   OLLAMA_URL=http://host.docker.internal:11434
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai_ollama
+    restart: unless-stopped
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"   # exponer al host por si querés usarlo desde fuera
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    # Para GPU (descomentar si tenés GPU NVIDIA):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+volumes:
+  ollama_data:

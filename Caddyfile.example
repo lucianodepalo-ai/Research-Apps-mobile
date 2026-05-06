@@ -1,0 +1,14 @@
+# Caddyfile - opcional, para servir el dashboard con HTTPS y password
+# Reemplazá tudominio.com por tu dominio apuntado al server Hetzner
+
+tudominio.com {
+    # Basic auth (generar hash con: docker run caddy caddy hash-password)
+    basicauth {
+        admin TU_HASH_BCRYPT_AQUI
+    }
+
+    reverse_proxy dashboard:8501 {
+        # Streamlit usa websockets
+        flush_interval -1
+    }
+}

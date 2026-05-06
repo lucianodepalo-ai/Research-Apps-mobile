@@ -1,0 +1,13 @@
+.env
+data/*.db
+data/*.session
+data/ollama_cache.db
+data/telegram_session*
+data/ig_session*
+data/x_session*
+logs/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
