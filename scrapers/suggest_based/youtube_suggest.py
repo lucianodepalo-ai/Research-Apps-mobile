@@ -18,13 +18,34 @@ class YouTubeSuggestScraper(BaseScraper):
     tier = 2
 
     SEED_PREFIXES = [
-        "como hacer", "tutorial", "como aprender", "como solucionar",
-        "como configurar", "como instalar", "review",
-        "que es", "diferencia entre", "mejor",
-        # Específicos AR
-        "como vender en mercado libre", "como cobrar dolares",
-        "como pagar afip", "como hacer factura",
-        "como armar curriculum", "como invertir",
+        # Tutorial intent — lo que busca gente que quiere aprender
+        "como hacer", "como usar", "tutorial", "paso a paso",
+        "como configurar", "como instalar", "como solucionar",
+        "guia para", "aprende a",
+
+        # Reviews y comparativas — para decidir qué app/servicio usar
+        "review", "que es mejor", "comparacion", "vale la pena",
+        "diferencia entre", "cual es mejor app",
+
+        # Finanzas AR — alto volumen de búsqueda tutorial
+        "como invertir en argentina", "como comprar dolar",
+        "como cobrar dolares siendo freelance",
+        "como funciona mercadopago", "como hacer plazo fijo",
+        "como declarar impuestos argentina",
+
+        # Trámites AR — gente que necesita que alguien le explique
+        "como tramitar dni argentina", "como sacar cuit",
+        "como usar mi argentina", "como cobrar anses",
+        "como pagar afip online",
+
+        # Apps móviles AR — intención directa
+        "app para ganar dinero argentina", "mejor app de finanzas argentina",
+        "app para aprender ingles gratis", "app para hacer factura",
+        "como usar billetera virtual",
+
+        # Trabajo y emprendimiento
+        "como emprender en argentina", "como trabajar desde casa",
+        "como conseguir clientes freelance",
     ]
 
     def _query(self, term: str) -> List[str]:

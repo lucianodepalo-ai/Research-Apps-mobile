@@ -30,10 +30,11 @@ class GoogleSuggestScraper(BaseScraper):
     name = "google_suggest"
     tier = 2
 
-    def __init__(self, deep_expand: bool = True):
+    def __init__(self, deep_expand: bool = False):
         """
-        deep_expand=True: para cada prefijo, también expande con cada letra.
-        Multiplica volumen x27 pero captura mucha más intención.
+        deep_expand=True: para cada prefijo, expande con cada letra.
+        Desactivado por defecto — en español k/j/x/w/z casi no tienen resultados útiles
+        y multiplica el tiempo x27 innecesariamente.
         """
         super().__init__()
         self.deep_expand = deep_expand

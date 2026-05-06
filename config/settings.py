@@ -70,22 +70,66 @@ ENABLE_TIKTOK = os.getenv("ENABLE_TIKTOK_SCRAPING", "true").lower() == "true"
 # === Semillas para descubrimiento amplio ===
 # Prefijos para autocomplete (Google/YouTube Suggest)
 SEED_PREFIXES = [
-    # Preguntas directas - revelan dudas
-    "como", "como hago", "como hacer", "como puedo", "como saber",
-    "que es", "que significa", "que pasa si", "cuanto",
-    "cuando", "donde", "por que", "para que",
-    # Trámites
-    "como tramitar", "requisitos para", "turno para",
-    "como solicitar", "donde sacar",
-    # Finanzas
-    "precio", "cuanto cuesta", "como invertir", "como ahorrar",
-    "como ganar", "como cobrar",
-    # Problemas
-    "no puedo", "no me anda", "porque no", "como solucionar",
-    # Compras
-    "mejor", "comparacion", "vs", "opiniones", "es bueno",
-    # Salud
-    "sintomas", "remedio", "como curar",
+    # ── Descubrimiento de apps ──────────────────────────────
+    "app para", "aplicacion para", "mejor app para", "app gratis para",
+    "como usar la app de", "descargar app de",
+
+    # ── Trámites y gestiones AR ─────────────────────────────
+    "como tramitar", "turno para", "como sacar turno",
+    "requisitos para", "donde sacar el",
+    "como sacar dni", "como sacar pasaporte", "como renovar dni",
+    "tramites afip", "como declarar", "como pagar afip",
+    "como hacer monotributo", "monotributo como",
+    "cuit como sacar", "cuil como sacar",
+    "mi argentina como", "anses como cobrar", "anses como consultar",
+    "beca como cobrar",
+
+    # ── Finanzas AR ─────────────────────────────────────────
+    "como invertir en argentina", "donde invertir mis ahorros",
+    "plazo fijo como hacer", "plazo fijo vs",
+    "como comprar dolar", "dolar blue como comprar",
+    "como ahorrar en pesos", "como ahorrar en argentina",
+    "como cobrar en dolares", "cobrar freelance argentina",
+    "mercadopago como", "cuenta bancaria como abrir",
+    "prestamo personal como pedir", "como refinanciar",
+
+    # ── Trabajo y empleo ────────────────────────────────────
+    "como conseguir trabajo en argentina", "trabajo remoto como",
+    "freelance como empezar en argentina", "como ganar dinero desde casa",
+    "como facturar como autonomo", "como registrar empleado",
+
+    # ── Salud ───────────────────────────────────────────────
+    "turno medico como sacar", "como afiliarse a obra social",
+    "cambiar obra social como", "prepaga como contratar",
+    "pami como sacar turno", "pami como afiliarse",
+    "remedio generico como conseguir",
+
+    # ── Servicios y utilities ───────────────────────────────
+    "como pagar la luz", "como pagar el gas", "tarifa luz argentina",
+    "internet como contratar", "cable como dar de baja",
+    "como reclamar a", "como hacer la denuncia",
+
+    # ── Transporte ──────────────────────────────────────────
+    "sube como cargar", "sube como registrar",
+    "vtv como sacar turno", "licencia de conducir como renovar",
+    "patente como pagar",
+
+    # ── Compras y e-commerce ────────────────────────────────
+    "como vender en mercadolibre", "como comprar en cuotas",
+    "mercadolibre como reclamar", "como pedir envio gratis",
+
+    # ── Tech / celular ──────────────────────────────────────
+    "como configurar", "como instalar", "android como",
+    "celular como liberar", "como pasar datos de celular",
+    "como recuperar cuenta de", "como cambiar contraseña de",
+
+    # ── Aprendizaje ─────────────────────────────────────────
+    "como aprender ingles gratis", "curso gratis de",
+    "certificado gratis de", "como programar desde cero",
+
+    # ── Problemas comunes ───────────────────────────────────
+    "no me anda", "porque no funciona", "como solucionar el error",
+    "no puedo acceder a", "como recuperar",
 ]
 
 # Categorías de Play Store para barrer apps competidoras
