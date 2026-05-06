@@ -13,13 +13,9 @@ services:
       - ./data:/app/data
       - ./logs:/app/logs
     environment:
-      # Si Ollama corre en otro container, ajustar:
       OLLAMA_URL: ${OLLAMA_URL:-http://ollama:11434}
+      OLLAMA_ENABLED: "false"
     command: python scheduler.py
-    depends_on:
-      ollama:
-        condition: service_healthy
-        required: false   # si Ollama está caído, scheduler igual arranca
 
   # ============================================================
   # Dashboard Streamlit
@@ -45,34 +41,7 @@ services:
     depends_on:
       - scheduler
 
-  # ============================================================
-  # Ollama: LLM local para NLP de reviews
-  # ============================================================
-  # Si ya tenés Ollama corriendo en el host, comentá este servicio
-  # y poné en .env:
-  #   OLLAMA_URL=http://host.docker.internal:11434
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ai_ollama
-    restart: unless-stopped
-    volumes:
-      - ollama_data:/root/.ollama
-    ports:
-      - "11434:11434"   # exponer al host por si querés usarlo desde fuera
-    healthcheck:
-      test: ["CMD", "ollama", "list"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 60s
-    # Para GPU (descomentar si tenés GPU NVIDIA):
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: 1
-    #           capabilities: [gpu]
-
-volumes:
-  ollama_data:
+  # Ollama deshabilitado — activar cuando haya espacio en disco suficiente (4GB+)
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   ...
