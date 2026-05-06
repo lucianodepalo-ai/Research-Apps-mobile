@@ -168,9 +168,9 @@ def main():
     scheduler.add_job(run_daily_digest, CronTrigger(hour=9, minute=0),
                        id="digest", max_instances=1, coalesce=True)
 
-    logger.info("Scheduler iniciado. Próximas ejecuciones:")
+    logger.info("Scheduler iniciado. Jobs registrados:")
     for job in scheduler.get_jobs():
-        logger.info(f"  - {job.id:12} → {job.next_run_time}")
+        logger.info(f"  - {job.id}")
 
     # Primera corrida: todos los scrapers activos + analyzer
     logger.info("\n=== Bootstrap inicial ===")
